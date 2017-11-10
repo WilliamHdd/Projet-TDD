@@ -2,6 +2,10 @@ package be.ecam.beerbar;
 
 public class run {
     public static void main(String[] args) {
-        System.out.println("Hello World");
+        
+        Bottle westVle = new Bottle("West Vleteren", 33, 8,
+                BeerColor.BRUNE, Brewery.SAINT_SIXTE);
+        
+        System.out.println(westVle);
     }
 }

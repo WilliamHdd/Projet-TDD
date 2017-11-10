@@ -12,5 +12,10 @@ public enum Brewery {
     
     public String getBreweryName() {
         return this.name;
-    } 
+    }
+    
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

@@ -2,9 +2,9 @@ package be.ecam.beerbar;
 
 public enum BeerColor {
     
-    BEER_BLONDE("Blonde"),
-    BEER_BRUNE("Brune"),
-    BEER_ROUGE("Rouge");
+    BLONDE("Blonde"),
+    BRUNE("Brune"),
+    ROUGE("Rouge");
 
     private final String color;
     
@@ -12,7 +12,8 @@ public enum BeerColor {
         this.color = color;
     }
     
-    public String getBeerColor() {
+    @Override
+    public String toString() {
         return this.color;
     }   
 }
