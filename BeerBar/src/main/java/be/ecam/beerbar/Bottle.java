@@ -27,8 +27,8 @@ public class Bottle {
     
     @Override
     public String toString() {
-        return String.format("%1$d) %2$s, %3$dcl, %4$s @ %5$d d'alcool de %6$s",
+        // ex: 1) Jupiler, 33cl, Blonde @ 7% d'alcool de Brasserie Jupiler
+        return String.format("%d) %s, %dcl, %s @ %d%% d'alcool de %s",
                 this.id, this.name, this.volume, this.color, this.alcRate, this.brewery);
     }
-    
 }
