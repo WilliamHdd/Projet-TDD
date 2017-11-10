@@ -1,7 +1,6 @@
 # Projet-TDD
 Test Driven Developpement project
 
-Le projet gère un stock de bière.
-En plus de stocker les différentes bières ainsi que leurs caractéristiques,-
+En plus de stocker les différentes bières ainsi que leurs caractéristiques, l'application proposera à l'utilisateur certaines selon ses envies. Ces dernières seront exprimées selon  
 
 
