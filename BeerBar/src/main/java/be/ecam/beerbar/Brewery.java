@@ -1,5 +1,8 @@
 package be.ecam.beerbar;
 
+/**
+ * This class sole purpose is to serve a predefined set of Brewery.
+ */
 public enum Brewery {
     
     SAINT_SIXTE("Brasserie de l'abbaye de Saint-Sixte"),
