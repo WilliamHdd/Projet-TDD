@@ -24,7 +24,7 @@ public class Bottle {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str .append(id)
+        str .append(this.id)
             .append(") ")
             .append(this.name)
             .append(", ")
