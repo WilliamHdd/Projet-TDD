@@ -1,5 +1,6 @@
 package be.ecam.beerbar;
 
+import java.util.AbstractMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -9,7 +10,7 @@ import java.util.Scanner;
  */
 public class Stock {
     
-    private final LinkedList<Bottle> beerList;
+    private final LinkedList<AbstractMap.SimpleEntry<Bottle,Integer>> beerList;
     
     public Stock() {
         this.beerList = new LinkedList();
@@ -17,15 +18,18 @@ public class Stock {
     }
     
     private void populateList() {
-        beerList.add(new Bottle("West Vleteren", 33, 8, BeerColor.BRUNE, Brewery.SAINT_SIXTE));
-        beerList.add(new Bottle("Jupiler", 33, 5, BeerColor.BLONDE, Brewery.JUPILER));
-        beerList.add(new Bottle("Jupiler Blue", 25, 3, BeerColor.BLONDE, Brewery.JUPILER));
+        beerList.add(new AbstractMap.SimpleEntry(
+                new Bottle("West Vleteren", 33, 8, BeerColor.BRUNE, Brewery.SAINT_SIXTE), 0));
+        beerList.add(new AbstractMap.SimpleEntry(
+                new Bottle("Jupiler", 33, 5, BeerColor.BLONDE, Brewery.JUPILER), 0));
+        beerList.add(new AbstractMap.SimpleEntry(
+                new Bottle("Jupiler Blue", 25, 3, BeerColor.BLONDE, Brewery.JUPILER), 0));
     }
 
     public void printList() {
-        Iterator<Bottle> iterBeerList = beerList.iterator();
+        Iterator<AbstractMap.SimpleEntry<Bottle,Integer>> iterBeerList = beerList.iterator();
         while (iterBeerList.hasNext()) {
-            System.out.println(iterBeerList.next());
+            System.out.println(iterBeerList.next().getValue());
         }
     }
     
@@ -49,8 +53,16 @@ public class Stock {
      */
     public static void manage(Scanner sc) {
         int select = Integer.parseInt(sc.nextLine());
-        if (select < 0 || select > 3) {
-            System.out.println("Ok");
+        if (select < 0 || select > 3) return;
+
+        switch (select) {
+            case 1: // add beer
+                break;
+            case 2: // remove beer
+                break;
+            case 3: // list critics
+                break;
         }
+        
     }
 }
