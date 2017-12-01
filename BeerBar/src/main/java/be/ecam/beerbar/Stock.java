@@ -1,6 +1,5 @@
 package be.ecam.beerbar;
 
-import java.util.AbstractMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -10,7 +9,7 @@ import java.util.Scanner;
  */
 public class Stock {
     
-    private final LinkedList<AbstractMap.SimpleEntry<Bottle,Integer>> beerList;
+    private final LinkedList<Pair<Bottle,Integer>> beerList;
     
     public Stock() {
         this.beerList = new LinkedList();
@@ -18,18 +17,18 @@ public class Stock {
     }
     
     private void populateList() {
-        beerList.add(new AbstractMap.SimpleEntry(
+        beerList.add(new Pair(
                 new Bottle("West Vleteren", 33, 8, BeerColor.BRUNE, Brewery.SAINT_SIXTE), 0));
-        beerList.add(new AbstractMap.SimpleEntry(
+        beerList.add(new Pair(
                 new Bottle("Jupiler", 33, 5, BeerColor.BLONDE, Brewery.JUPILER), 0));
-        beerList.add(new AbstractMap.SimpleEntry(
+        beerList.add(new Pair(
                 new Bottle("Jupiler Blue", 25, 3, BeerColor.BLONDE, Brewery.JUPILER), 0));
     }
 
     public void printList() {
-        Iterator<AbstractMap.SimpleEntry<Bottle,Integer>> iterBeerList = beerList.iterator();
+        Iterator<Pair<Bottle,Integer>> iterBeerList = beerList.iterator();
         while (iterBeerList.hasNext()) {
-            System.out.println(iterBeerList.next().getValue());
+            System.out.println(iterBeerList.next().getKey());
         }
     }
     
