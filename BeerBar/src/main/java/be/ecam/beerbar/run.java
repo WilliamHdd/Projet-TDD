@@ -18,7 +18,7 @@ public class run {
     private static final String MENU_STOCK = "\n"
             + "What do you want to do?      \n\t"
             + "(1) Add beer                 \n\t"
-            + "(2) Remove beer              \n\t"
+            + "(2) Change qte or remove     \n\t"
             + "(3) See critic quantities      \n"
             + "Enter your selection [1-3]: ";
 

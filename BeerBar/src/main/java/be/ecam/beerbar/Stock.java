@@ -68,8 +68,7 @@ public class Stock {
     }
     
     public static void addBottle(Stock stock, Scanner sc) {
-        String notice = "\n"
-            + "Type the following bottle informations, please:"
+        String notice = "Type the following bottle informations."
             + "\n\t Beer name: ";
         System.out.print(notice);
         String inName = sc.nextLine();
@@ -78,24 +77,21 @@ public class Stock {
             return;
         }
         
-        notice = "\t Beer volume: ";
-        System.out.print(notice);
+        System.out.print("\t Beer volume: ");
         int inVolume = Integer.parseInt(sc.nextLine());
         if (inVolume < 1 || inVolume > 200) {
             System.err.println("Invalid input");
             return;
         }
         
-        notice = "\t Beer alcool rate: ";
-        System.out.print(notice);
+        System.out.print("\t Beer alcool rate: ");
         int inAlcRate = Integer.parseInt(sc.nextLine());
         if (inAlcRate < 0 || inAlcRate > 99) {
             System.err.println("Invalid input");
             return;
         }
         
-        notice = "\t Select the beer color\n";
-        System.out.print(notice);
+        System.out.print("\t Select the beer color\n");
         BeerColor choiceBC[] = BeerColor.values();
         for (int i = 0; i < choiceBC.length; i++)
             System.out.println(String.format("%d) %s", i+1, choiceBC[i]));
@@ -106,8 +102,7 @@ public class Stock {
             return;
         }
         
-        notice = "\t Select the brewery\n";
-        System.out.print(notice);
+        System.out.print("\t Select the brewery\n");
         Brewery choiceBR[] = Brewery.values();
         for (int i = 0; i < choiceBR.length; i++)
             System.out.println(String.format("%d) %s", i+1, choiceBR[i]));
@@ -118,8 +113,7 @@ public class Stock {
             return;
         }
         
-        notice = "\t Type the quantity: ";
-        System.out.print(notice);
+        System.out.print("\t Type the quantity: ");
         int inQte = Integer.parseInt(sc.nextLine());
         if (inQte < 1 || inQte > 100) {
             System.err.println("Invalid input");
@@ -137,7 +131,30 @@ public class Stock {
     }
     
     public static void delBottle(Stock stock, Scanner sc) {
-        //TODO
+        Iterator<Pair<Bottle, Integer>> iterList = stock.beerList.iterator();
+        int counter = 1;
+        while (iterList.hasNext()) {
+            Pair<Bottle, Integer> pair = iterList.next();
+            Bottle  bottle   = pair.getKey();
+            Integer quantity = pair.getValue();
+            System.out.println(String.format("%d) qte: %d, %s", counter, quantity, bottle));
+            counter++;
+        }
+        System.out.println("Type the id of the beer to edit: ");
+        int inID = Integer.parseInt(sc.nextLine());
+        if (inID < 1 || inID > counter-1) {
+            System.err.println("Invalid input");
+            return;
+        }
+        
+        System.out.println("Type the new quantity of the beer (0 to remove): ");
+        int inQte = Integer.parseInt(sc.nextLine());
+        if (inQte < 0 || inQte > 100) {
+            System.err.println("Invalid input");
+            return;
+        }
+        
+        // TODO change quantity
     }
     
     public static void listCritics(Stock stock, Scanner sc) {
