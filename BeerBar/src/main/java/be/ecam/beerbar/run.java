@@ -18,14 +18,15 @@ public class run {
     private static final String MENU_STOCK = "\n"
             + "What do you want to do?      \n\t"
             + "(1) Add beer                 \n\t"
-            + "(2) See critic quantities      \n"
-            + "Enter your selection [1-2]: ";
+            + "(2) Remove beer              \n\t"
+            + "(3) See critic quantities      \n"
+            + "Enter your selection [1-3]: ";
 
     private static final String MENU_BEER = "\n"
             + "What do you want to do?     \n\t"
             + "(1) By color                \n\t"
-            + "(2) By Volume               \n\t"
-            + "(3) By Brasserie              \n"
+            + "(2) By volume               \n\t"
+            + "(3) By brasserie              \n"
             + "Enter your selection [1-3]: ";
     
     private static final Stock STOCK = new Stock();
@@ -44,10 +45,13 @@ public class run {
         switch (selection) {
             case 1:
                 System.out.print(MENU_STOCK);
+                Stock.manage(sc);
                 break;
+                
             case 2:
                 System.out.print(MENU_BEER);
                 break;
+                
             case 3:
                 System.out.println("menu3");
         }
