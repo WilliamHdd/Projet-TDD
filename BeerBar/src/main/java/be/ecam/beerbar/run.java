@@ -45,7 +45,7 @@ public class run {
         switch (selection) {
             case 1:
                 System.out.print(MENU_STOCK);
-                Stock.manage(STOCK, sc);
+                STOCK.manage();
                 break;
                 
             case 2:

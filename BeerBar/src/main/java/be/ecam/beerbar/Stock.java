@@ -10,9 +10,11 @@ import java.util.Scanner;
 public class Stock {
     
     private final LinkedList<Pair<Bottle,Integer>> beerList;
+    private final Scanner sc;
     
     public Stock() {
         this.beerList = new LinkedList();
+        this.sc = new Scanner(System.in);
         populateList();
     }
     
@@ -47,27 +49,30 @@ public class Stock {
         return null;
     }
     
-    /*
-     * Management interface of the beer stock
+    /**
+     * Management interface of the beer stock.
      */
-    public static void manage(Stock stock, Scanner sc) {
+    public void manage() {
         int select = Integer.parseInt(sc.nextLine());
         if (select < 0 || select > 3) return;
 
         switch (select) {
             case 1: // add beer
-                addBottle(stock, sc);
+                this.addBottle();
                 break;
             case 2: // remove beer
-                delBottle(stock, sc);
+                this.editBottle();
                 break;
             case 3: // list critics
-                listCritics(stock, sc);
+                this.listCritics();
         }
-        
     }
     
-    public static void addBottle(Stock stock, Scanner sc) {
+    /**
+     * Add a bottle to the list of beer.
+     * The function takes no arguments because it reads every field from stdin.
+     */
+    public void addBottle() {
         String notice = "Type the following bottle informations."
             + "\n\t Beer name: ";
         System.out.print(notice);
@@ -120,18 +125,20 @@ public class Stock {
             return;
         }
         
-        stock.beerList.add(
+        this.beerList.add(
             new Pair(
                 new Bottle(inName, inVolume, inAlcRate,
                     choiceBC[inChoiceBC-1], choiceBR[inChoiceBR-1]),
                 inQte)
         );
-        
-        
     }
     
-    public static void delBottle(Stock stock, Scanner sc) {
-        Iterator<Pair<Bottle, Integer>> iterList = stock.beerList.iterator();
+    /**
+     * Edit the quantity or remove a bottle from the beer list.
+     * The function takes no arguments because it reads every field from stdin.
+     */
+    public void editBottle() {
+        Iterator<Pair<Bottle, Integer>> iterList = this.beerList.iterator();
         int counter = 1;
         while (iterList.hasNext()) {
             Pair<Bottle, Integer> pair = iterList.next();
@@ -140,24 +147,43 @@ public class Stock {
             System.out.println(String.format("%d) qte: %d, %s", counter, quantity, bottle));
             counter++;
         }
-        System.out.println("Type the id of the beer to edit: ");
+        System.out.print("Type the id of the beer to edit: ");
         int inID = Integer.parseInt(sc.nextLine());
         if (inID < 1 || inID > counter-1) {
             System.err.println("Invalid input");
             return;
         }
         
-        System.out.println("Type the new quantity of the beer (0 to remove): ");
+        System.out.print("Type the new quantity of the beer (0 to remove): ");
         int inQte = Integer.parseInt(sc.nextLine());
         if (inQte < 0 || inQte > 100) {
             System.err.println("Invalid input");
             return;
         }
         
-        // TODO change quantity
+        // delete a bottle
+        if (inQte == 0) {
+            this.beerList.remove(inID-1);
+            return;
+        }
+        
+        // add the quantity
+        this.beerList.get(inID-1).setValue(inQte);
     }
     
-    public static void listCritics(Stock stock, Scanner sc) {
-        //TODO
+    /**
+     * Print a list of beer with 10 bottles or less in the stock.
+     */
+    public void listCritics() {
+        Iterator<Pair<Bottle, Integer>> iterList = this.beerList.iterator();
+        while (iterList.hasNext()) {
+            Pair<Bottle, Integer> pair = iterList.next();
+            Bottle  bottle   = pair.getKey();
+            Integer quantity = pair.getValue();
+            
+            if (quantity <= 10) {
+                System.out.println(String.format("qte: %d, %s", quantity, bottle));
+            }
+        }
     }
 }
