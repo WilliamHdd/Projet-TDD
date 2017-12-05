@@ -49,6 +49,15 @@ public class Stock {
         return null;
     }
     
+    public int input_check(int lower, int upper) {
+        int iinput = Integer.parseInt(sc.nextLine());
+        if (iinput < lower || iinput > upper) {
+            System.err.println("Invalid input");
+            return -1;
+        }
+        return iinput;
+    }
+    
     /**
      * Management interface of the beer stock.
      */
@@ -73,57 +82,43 @@ public class Stock {
      * The function takes no arguments because it reads every field from stdin.
      */
     public void addBottle() {
-        String notice = "Type the following bottle informations."
-            + "\n\t Beer name: ";
-        System.out.print(notice);
+        System.out.print("Type the following bottle informations.\nBeer name: ");
         String inName = sc.nextLine();
         if (inName.length() < 3 || inName.length() > 80) {
             System.err.println("Invalid input");
             return;
         }
         
-        System.out.print("\t Beer volume: ");
-        int inVolume = Integer.parseInt(sc.nextLine());
-        if (inVolume < 1 || inVolume > 200) {
-            System.err.println("Invalid input");
-            return;
-        }
+        System.out.print("Beer volume: ");
+        int inVolume = input_check(1, 200);
+        if (inVolume == -1) return;
         
-        System.out.print("\t Beer alcool rate: ");
-        int inAlcRate = Integer.parseInt(sc.nextLine());
-        if (inAlcRate < 0 || inAlcRate > 99) {
-            System.err.println("Invalid input");
-            return;
-        }
+        System.out.print("Beer alcool rate: ");
+        int inAlcRate = input_check(0, 99);
+        if (inAlcRate == -1) return;
         
-        System.out.print("\t Select the beer color\n");
+        // list the beer colors
+        System.out.print("Select the beer color\n");
         BeerColor choiceBC[] = BeerColor.values();
         for (int i = 0; i < choiceBC.length; i++)
             System.out.println(String.format("%d) %s", i+1, choiceBC[i]));
         
-        int inChoiceBC = Integer.parseInt(sc.nextLine());
-        if (inChoiceBC < 0 || inChoiceBC > choiceBC.length) {
-            System.err.println("Invalid input");
-            return;
-        }
+        int inChoiceBC = input_check(0, choiceBC.length);
+        if (inChoiceBC == -1) return;
         
-        System.out.print("\t Select the brewery\n");
+        
+        // list the breweries
+        System.out.print("Select the brewery\n");
         Brewery choiceBR[] = Brewery.values();
         for (int i = 0; i < choiceBR.length; i++)
             System.out.println(String.format("%d) %s", i+1, choiceBR[i]));
         
-        int inChoiceBR = Integer.parseInt(sc.nextLine());
-        if (inChoiceBR < 0 || inChoiceBR > choiceBR.length) {
-            System.err.println("Invalid input");
-            return;
-        }
+        int inChoiceBR = input_check(0, choiceBR.length);
+        if (inChoiceBR == -1) return;
         
-        System.out.print("\t Type the quantity: ");
-        int inQte = Integer.parseInt(sc.nextLine());
-        if (inQte < 1 || inQte > 100) {
-            System.err.println("Invalid input");
-            return;
-        }
+        System.out.print("Type the quantity: ");
+        int inQte = input_check(1, 100);
+        if (inQte == -1) return;
         
         this.beerList.add(
             new Pair(
@@ -182,7 +177,7 @@ public class Stock {
             Integer quantity = pair.getValue();
             
             if (quantity <= 10) {
-                System.out.println(String.format("qte: %d, %s", quantity, bottle));
+                System.out.println(String.format("qte:%d, %s", quantity, bottle));
             }
         }
     }
