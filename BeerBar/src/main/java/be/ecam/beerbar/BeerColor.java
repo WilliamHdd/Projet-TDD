@@ -10,7 +10,7 @@ public enum BeerColor {
     BRUNE("Brune"),
     ROUGE("Rouge"),
     BLONDE("Blonde"),
-    BLANCHE("Blance");
+    BLANCHE("Blanche");
 
     private final String color;
     
@@ -21,5 +21,6 @@ public enum BeerColor {
     @Override
     public String toString() {
         return this.color;
-    }   
+    }
+    
 }

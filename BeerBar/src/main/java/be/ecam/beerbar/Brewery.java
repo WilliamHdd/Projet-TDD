@@ -18,4 +18,5 @@ public enum Brewery {
     public String toString() {
         return this.name;
     }
+
 }
