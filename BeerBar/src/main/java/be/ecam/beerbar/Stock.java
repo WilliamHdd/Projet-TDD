@@ -24,6 +24,32 @@ public class Stock {
         }
     }
     
+    public void select() {
+        int selection = run.input_check(sc, 1, 3, null);
+        if (selection == -1) return;
+        
+        switch (selection) {
+            case 1: // find by name
+                String foo = sc.nextLine();
+                System.out.println(findBeerByName(foo));
+                break;
+            case 2: // find by color
+                BeerColor choiceBC[] = BeerColor.values();
+                for (int i = 0; i < choiceBC.length; i++)
+                    System.out.println(String.format("%d) %s", i+1, choiceBC[i]));
+
+                int inChoiceBC = run.input_check(sc, 0, choiceBC.length, null);
+                if (inChoiceBC == -1) return;
+                System.out.println(findBeerByColor(choiceBC[inChoiceBC-1]));
+                break;
+            case 3: // find by volume
+                int bar = run.input_check(sc, 1, 100, null);
+                if (bar == -1) return;
+                System.out.println(findBeerByVolume(bar));
+                break;
+        }   
+    }
+    
     private Bottle findBeerByName(String query) {
         Iterator<Pair<Bottle,Integer>> iterBeerList = beerList.iterator();
         while (iterBeerList.hasNext()) {

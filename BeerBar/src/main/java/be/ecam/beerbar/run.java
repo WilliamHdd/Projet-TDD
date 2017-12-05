@@ -24,9 +24,9 @@ public class run {
 
     private static final String MENU_BEER = ""
             + "What do you want to do?       \n"
-            + "(1) By color                  \n"
-            + "(2) By volume                 \n"
-            + "(3) By brasserie              \n"
+            + "(1) By name                   \n"
+            + "(2) By color                  \n"
+            + "(3) By volume                 \n"
             + "Enter your selection [1-3]: ";
     
     private static final Stock STOCK = new Stock();
@@ -50,6 +50,7 @@ public class run {
 
                 case 2:
                     System.out.print(MENU_BEER);
+                    STOCK.select();
                     break;
 
                 case 3:
