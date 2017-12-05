@@ -36,16 +36,11 @@ public class run {
         Scanner sc = new Scanner(System.in);
         boolean running = true;
         
-        
         while (running) {
 
             System.out.print(MENU_MAIN);
 
-            int selection = Integer.parseInt(sc.nextLine());
-            while (selection < 0 || selection > 3) {
-                System.out.print(MENU_MAIN);
-                selection = Integer.parseInt(sc.nextLine());
-            }
+            int selection = input_check(sc, 0, 3, MENU_MAIN);
 
             switch (selection) {
                 case 1:
@@ -69,5 +64,25 @@ public class run {
         }
         
         STOCK.printList();
+    }
+
+    public static int input_check(Scanner sc, int lower, int upper, String errorStr) {
+        int iinput = -1;
+        String notice = errorStr != null ? errorStr : "Invalid input, please retry:";
+
+        while (true) {
+            try {
+                iinput = Integer.parseInt(sc.nextLine());
+                while (iinput < lower || iinput > upper) {
+                    System.err.println(notice);
+                    iinput = Integer.parseInt(sc.nextLine());
+                }
+                break;
+            } catch(NumberFormatException e) {
+                System.err.println(notice);
+            }
+        }
+
+        return iinput;
     }
 }

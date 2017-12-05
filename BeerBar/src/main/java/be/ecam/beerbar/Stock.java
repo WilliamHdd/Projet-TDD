@@ -4,14 +4,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-// imports for DB
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
-
-
 /**
  * This class handle a virtual stock of beers.
  */
@@ -23,33 +15,6 @@ public class Stock {
     public Stock() {
         this.beerList = new LinkedList();
         this.sc = new Scanner(System.in);
-        populateList();
-    }
-    
-    private void populateList() {
-        try{
-            // Connection to the DB
-            String host = "jdbc:derby://localhost:1527/BeerBar";
-            String uName = "admin6";
-            String uPass = "admin";
-            Connection con = DriverManager.getConnection( host, uName, uPass);
-            // REQUEST to the DB
-            Statement stmt = con.createStatement( );
-            String SQL = "SELECT * FROM BEERBAR";
-            ResultSet rs = stmt.executeQuery( SQL );
-            while (rs.next()){
-                Bottle B = new Bottle(rs.getString("BEER").replaceAll(" ",""),
-                                        rs.getInt("VOLUME"),
-                                        rs.getInt("alcrate"),
-                                        BeerColor.valueOf(rs.getString("BEERCOLOR").replaceAll(" ","")),
-                                        Brewery.valueOf(rs.getString("BREWERY").replaceAll(" ","")));
-                beerList.add(new Pair(B,rs.getInt("Quantity")));
-                System.out.println(B);
-            }
-        }
-        catch(SQLException err){
-            System.out.println(err.getMessage());
-        }        
     }
 
     public void printList() {
@@ -94,21 +59,11 @@ public class Stock {
         return answer;
     }
     
-    public int input_check(int lower, int upper) {
-        int iinput = Integer.parseInt(sc.nextLine());
-        if (iinput < lower || iinput > upper) {
-            System.err.println("Invalid input");
-            return -1;
-        }
-        return iinput;
-    }
-    
     /**
      * Management interface of the beer stock.
      */
     public void manage() {
-        int select = Integer.parseInt(sc.nextLine());
-        if (select < 0 || select > 3) return;
+        int select = run.input_check(sc, 0, 3, null);
 
         switch (select) {
             case 1: // add beer
@@ -135,11 +90,11 @@ public class Stock {
         }
         
         System.out.print("Beer volume: ");
-        int inVolume = input_check(1, 200);
+        int inVolume = run.input_check(sc, 1, 200, null);
         if (inVolume == -1) return;
         
         System.out.print("Beer alcool rate: ");
-        int inAlcRate = input_check(0, 99);
+        int inAlcRate = run.input_check(sc, 0, 99, null);
         if (inAlcRate == -1) return;
         
         // list the beer colors
@@ -148,7 +103,7 @@ public class Stock {
         for (int i = 0; i < choiceBC.length; i++)
             System.out.println(String.format("%d) %s", i+1, choiceBC[i]));
         
-        int inChoiceBC = input_check(0, choiceBC.length);
+        int inChoiceBC = run.input_check(sc, 0, choiceBC.length, null);
         if (inChoiceBC == -1) return;
         
         
@@ -158,11 +113,11 @@ public class Stock {
         for (int i = 0; i < choiceBR.length; i++)
             System.out.println(String.format("%d) %s", i+1, choiceBR[i]));
         
-        int inChoiceBR = input_check(0, choiceBR.length);
+        int inChoiceBR = run.input_check(sc, 0, choiceBR.length, null);
         if (inChoiceBR == -1) return;
         
         System.out.print("Type the quantity: ");
-        int inQte = input_check(1, 100);
+        int inQte = run.input_check(sc, 1, 100, null);
         if (inQte == -1) return;
         
         this.beerList.add(
@@ -188,18 +143,10 @@ public class Stock {
             counter++;
         }
         System.out.print("Type the id of the beer to edit: ");
-        int inID = Integer.parseInt(sc.nextLine());
-        if (inID < 1 || inID > counter-1) {
-            System.err.println("Invalid input");
-            return;
-        }
+        int inID = run.input_check(sc, 1, counter-1, null);
         
         System.out.print("Type the new quantity of the beer (0 to remove): ");
-        int inQte = Integer.parseInt(sc.nextLine());
-        if (inQte < 0 || inQte > 100) {
-            System.err.println("Invalid input");
-            return;
-        }
+        int inQte = run.input_check(sc, 0, 100, null);
         
         // delete a bottle
         if (inQte == 0) {
