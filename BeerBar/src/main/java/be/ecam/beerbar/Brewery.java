@@ -6,11 +6,11 @@ package be.ecam.beerbar;
 public enum Brewery {
     
     SAINT_SIXTE("Brasserie de l'abbaye de Saint-Sixte"),
-    JUPILER("Brasserie Jupiler");
-    ALVINNE("Brasserie Alvinne");
-    SAMBRE("Brasserie du Val de Sambre");
-    BONCHOISE("Brasserie La Bonchoise");
-    BRUNEHAUT("Brasserie de Brunehaut");
+    JUPILER("Brasserie Jupiler"),
+    ALVINNE("Brasserie Alvinne"),
+    SAMBRE("Brasserie du Val de Sambre"),
+    BONCHOISE("Brasserie La Bonchoise"),
+    BRUNEHAUT("Brasserie de Brunehaut"),
     HAACHT("Brasserie Haacht");
 
     private final String name;

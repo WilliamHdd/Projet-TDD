@@ -55,6 +55,7 @@ public class run {
 
                 case 3:
                     System.out.println("The last bottles ordered were:");
+                    // not implemented
                     break;
                     
                 default:
@@ -62,9 +63,7 @@ public class run {
                     break;
             }       
         
-        }
-        
-        STOCK.printList();
+        }      
     }
 
     public static int input_check(Scanner sc, int lower, int upper, String errorStr) {
@@ -75,7 +74,7 @@ public class run {
             try {
                 iinput = Integer.parseInt(sc.nextLine());
                 while (iinput < lower || iinput > upper) {
-                    System.err.println(notice);
+                    System.err.print(notice);
                     iinput = Integer.parseInt(sc.nextLine());
                 }
                 break;

@@ -1,5 +1,8 @@
 package be.ecam.beerbar;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -15,12 +18,29 @@ public class Stock {
     public Stock() {
         this.beerList = new LinkedList();
         this.sc = new Scanner(System.in);
+        readCSV("BeerList.csv");
     }
 
-    public void printList() {
-        Iterator<Pair<Bottle,Integer>> iterBeerList = beerList.iterator();
-        while (iterBeerList.hasNext()) {
-            System.out.println(iterBeerList.next().getKey());
+    private void readCSV(String filename) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] elem = line.split(",");
+                int vol = 0, alc = 0;
+                try {
+                    vol = Integer.parseInt(elem[1]);
+                    alc = Integer.parseInt(elem[2]);
+                } catch (NumberFormatException nfe) {
+                    System.err.println(nfe);
+                }
+                this.beerList.add(
+                    new Pair(
+                        new Bottle(elem[0], vol, alc,
+                                BeerColor.valueOf(elem[3]), Brewery.valueOf(elem[4])), 1)
+                );
+            }
+        } catch (IOException e) {
+            System.err.println(e);
         }
     }
     
@@ -98,8 +118,8 @@ public class Stock {
             case 2: // remove beer
                 this.editBottle();
                 break;
-            case 3: // list critics
-                this.listCritics();
+            case 3: // list critics quantities
+                this.listCriticQuantities();
         }
     }
     
@@ -169,7 +189,8 @@ public class Stock {
             counter++;
         }
         System.out.print("Type the id of the beer to edit: ");
-        int inID = run.input_check(sc, 1, counter-1, null);
+        int inID = run.input_check(sc, 0, counter-1, null);
+        if (inID == 0) return;
         
         System.out.print("Type the new quantity of the beer (0 to remove): ");
         int inQte = run.input_check(sc, 0, 100, null);
@@ -187,7 +208,7 @@ public class Stock {
     /**
      * Print a list of beer with 10 bottles or less in the stock.
      */
-    public void listCritics() {
+    public void listCriticQuantities() {
         Iterator<Pair<Bottle, Integer>> iterList = this.beerList.iterator();
         while (iterList.hasNext()) {
             Pair<Bottle, Integer> pair = iterList.next();
