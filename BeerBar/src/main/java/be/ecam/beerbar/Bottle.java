@@ -25,4 +25,13 @@ public class Bottle {
         return String.format("%s, %dcl, %s @ %d%% d'alcool de %s",
             this.name, this.volume, this.color, this.alcRate, this.brewery);
     }
+    public String getName(){
+        return name;
+    }
+    public BeerColor getColor(){
+        return color;
+    }
+    public int getVolume(){
+        return volume;
+    }
 }

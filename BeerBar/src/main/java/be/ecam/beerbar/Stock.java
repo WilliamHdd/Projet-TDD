@@ -59,19 +59,39 @@ public class Stock {
         }
     }
     
-    private LinkedList<Bottle> findBeerByName(String query) {
-        //TODO
+    private Bottle findBeerByName(String query) {
+        Iterator<Pair<Bottle,Integer>> iterBeerList = beerList.iterator();
+        while (iterBeerList.hasNext()) {
+            Bottle bottle = iterBeerList.next().getKey();
+            if (bottle.getName().equals(query)){
+                return bottle;
+            }
+        }
         return null;
     }
     
     private LinkedList<Bottle> findBeerByColor(BeerColor query) {
-        //TODO
-        return null;
+        Iterator<Pair<Bottle,Integer>> iterBeerList = beerList.iterator();
+        LinkedList<Bottle> answer = new LinkedList();
+        while (iterBeerList.hasNext()) {
+            Bottle bottle = iterBeerList.next().getKey();
+            if (bottle.getColor().equals(query)){
+                answer.add(bottle);
+            }
+        }
+        return answer;
     }
     
     private LinkedList<Bottle> findBeerByVolume(int query) {
-        //TODO
-        return null;
+        Iterator<Pair<Bottle,Integer>> iterBeerList = beerList.iterator();
+        LinkedList<Bottle> answer = new LinkedList();
+        while (iterBeerList.hasNext()) {
+            Bottle bottle = iterBeerList.next().getKey();
+            if (bottle.getVolume() == (query)){
+                answer.add(bottle);
+            }
+        }
+        return answer;
     }
     
     public int input_check(int lower, int upper) {
