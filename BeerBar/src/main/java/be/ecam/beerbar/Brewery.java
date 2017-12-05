@@ -9,7 +9,7 @@ public enum Brewery {
     JUPILER("Brasserie Jupiler");
     ALVINNE("Brasserie Alvinne");
     SAMBRE("Brasserie du Val de Sambre");
-    BONCHOISE("Brasserie La Bonchoise);
+    BONCHOISE("Brasserie La Bonchoise");
     BRUNEHAUT("Brasserie de Brunehaut");
     HAACHT("Brasserie Haacht");
 
