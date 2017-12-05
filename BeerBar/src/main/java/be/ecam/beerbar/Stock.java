@@ -4,14 +4,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-// imports for DB
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.ResultSet;
-
-
 /**
  * This class handle a virtual stock of beers.
  */
@@ -23,33 +15,6 @@ public class Stock {
     public Stock() {
         this.beerList = new LinkedList();
         this.sc = new Scanner(System.in);
-        populateList();
-    }
-    
-    private void populateList() {
-        try{
-            // Connection to the DB
-            String host = "jdbc:derby://localhost:1527/BeerBar";
-            String uName = "admin6";
-            String uPass = "admin";
-            Connection con = DriverManager.getConnection( host, uName, uPass);
-            // REQUEST to the DB
-            Statement stmt = con.createStatement( );
-            String SQL = "SELECT * FROM BEERBAR";
-            ResultSet rs = stmt.executeQuery( SQL );
-            while (rs.next()){
-                Bottle B = new Bottle(rs.getString("BEER").replaceAll(" ",""),
-                                        rs.getInt("VOLUME"),
-                                        rs.getInt("alcrate"),
-                                        BeerColor.valueOf(rs.getString("BEERCOLOR").replaceAll(" ","")),
-                                        Brewery.valueOf(rs.getString("BREWERY").replaceAll(" ","")));
-                beerList.add(new Pair(B,rs.getInt("Quantity")));
-                System.out.println(B);
-            }
-        }
-        catch(SQLException err){
-            System.out.println(err.getMessage());
-        }        
     }
 
     public void printList() {

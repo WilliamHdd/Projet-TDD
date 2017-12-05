@@ -36,7 +36,6 @@ public class run {
         Scanner sc = new Scanner(System.in);
         boolean running = true;
         
-        
         while (running) {
 
             System.out.print(MENU_MAIN);
