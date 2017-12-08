@@ -27,7 +27,8 @@ public class Stock {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] elem = line.split(",");
-                int vol = 0, alc = 0;
+                int vol = 0;
+                int alc = 0;
                 try {
                     vol = Integer.parseInt(elem[1]);
                     alc = Integer.parseInt(elem[2]);
