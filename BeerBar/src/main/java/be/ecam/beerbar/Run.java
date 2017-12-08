@@ -52,38 +52,6 @@ public class Run {
                 System.out.println("Didn't understand " + inp);
             }
         }
-        /*
-        Scanner sc = new Scanner(System.in);
-        boolean running = true;
-        
-        while (running) {
-
-            System.out.print(MENU_MAIN);
-
-            int selection = inputCheck(sc, 0, 3, MENU_MAIN);
-
-            switch (selection) {
-                case 1:
-                    System.out.print(MENU_STOCK);
-                    STOCK.manage();
-                    break;
-
-                case 2:
-                    System.out.print(MENU_BEER);
-                    STOCK.select();
-                    break;
-
-                case 3:
-                    System.out.println("The last bottles ordered were:");
-                    // not implemented
-                    break;
-                    
-                default:
-                    running = false;
-                    break;
-            }       
-        
-        }  */
     }
 
     public static int inputCheck(Scanner sc, int lower, int upper, String errorStr) {
