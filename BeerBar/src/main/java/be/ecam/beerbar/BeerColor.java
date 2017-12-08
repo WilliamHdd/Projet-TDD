@@ -14,7 +14,7 @@ public enum BeerColor {
 
     private final String color;
     
-    private BeerColor(String color) {
+    BeerColor(String color) {
         this.color = color;
     }
     

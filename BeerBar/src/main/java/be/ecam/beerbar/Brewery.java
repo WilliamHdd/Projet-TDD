@@ -15,7 +15,7 @@ public enum Brewery {
 
     private final String name;
     
-    private Brewery(String name) {
+    Brewery(String name) {
         this.name = name;
     }
     
