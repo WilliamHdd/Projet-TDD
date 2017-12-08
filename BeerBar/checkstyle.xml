@@ -48,5 +48,9 @@
         </module>
 
         <module name="OneTopLevelClass"/>
+
+        <module name="CyclomaticComplexity">
+            <property name="max" value="10"/>
+        </module>
     </module>
 </module>
