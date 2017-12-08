@@ -19,7 +19,7 @@ public class MainTest {
     }
 
     public void saikou() {
-        Assert.assertEquals("SaikouIsStupid", "SaikouIsStupid");
+        Assert.assertEquals("SaikouIsStupid", "SaikouIsStupidd");
 
     }
 
