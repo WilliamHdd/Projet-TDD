@@ -10,14 +10,14 @@ public class MainTest {
     public void shouldTest() {
         Assert.assertEquals("Hello", "Hello");
     }
-
+    @Test
     public void addBottleTest() {
         Bottle bot = new Bottle("jupiler", 25, 4, BeerColor.BLONDE, Brewery.JUPILER);
         Assert.assertEquals(bot.getName(),"jupiler");
         Assert.assertEquals(bot.getVolume(),25);
         Assert.assertEquals(bot.getColor(),BeerColor.BLONDE);
     }
-
+    @Test
     public void saikou() {
         Assert.assertEquals("SaikouIsStupid", "SaikouIsStupidd");
 
