@@ -21,8 +21,10 @@ public class Console {
         MenuItem backRoot = new MenuItem("Go back", null, null);
 
         MenuItem stock1 = new MenuItem("Add beer", null, e -> this.stock.addBottle());
-        MenuItem stock2 = new MenuItem("Change qantity or remove", null, e -> this.stock.editBottle());
-        MenuItem stock3 = new MenuItem("See critic quantities", null, e -> this.stock.listCriticQuantities());
+        MenuItem stock2 = new MenuItem("Change qantity or remove", null,
+                e -> this.stock.editBottle());
+        MenuItem stock3 = new MenuItem("See critic quantities", null,
+                e -> this.stock.listCriticQuantities());
         MenuItem beer1 = new MenuItem("By name", null, this::findBeerByName);
         MenuItem beer2 = new MenuItem("By color", null, this::findBeerByColor);
         MenuItem beer3 = new MenuItem("By volume", null, this::findBeerByVolume);
@@ -72,7 +74,7 @@ public class Console {
     }
 
     class Menu {
-        private List < MenuItem > items = new ArrayList < >();
+        private List<MenuItem> items = new ArrayList<>();
         private String title;
 
         public Menu(String title) {
@@ -89,7 +91,7 @@ public class Console {
             items.get(option).select();
             Menu next = items.get(option).getSubMenu();
 
-            return next == null ? this: next;
+            return next == null ? this : next;
         }
 
         public Menu addItem(MenuItem item) {
@@ -128,7 +130,9 @@ public class Console {
         }
 
         public void select() {
-            if (onselect != null) onselect.actionPerformed(new ActionEvent(this, 0, "select"));
+            if (onselect != null) {
+                onselect.actionPerformed(new ActionEvent(this, 0, "select"));
+            }
         }
 
         public Menu getSubMenu() {
