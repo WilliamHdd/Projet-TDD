@@ -4,26 +4,28 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Console {
 
     private Stock stock;
-    //creer console
-    //creer stock
+    private Scanner sc;
+
     public Console() {
         this.stock = new Stock();
+        this.sc = new Scanner(System.in);
     }
 
 
     public Menu createMenuSystem() {
         MenuItem backRoot = new MenuItem("Go back", null, null);
 
-        MenuItem stock1 = new MenuItem("Add beer", null, e -> this.stock.addBottle()); //appeller stock methods
-        MenuItem stock2 = new MenuItem("Change qantity or remove", null, e -> System.out.println("Change qantity or remove!"));
-        MenuItem stock3 = new MenuItem("See critic quantities", null, e -> System.out.println("See critic quantities!"));
-        MenuItem beer1 = new MenuItem("By name", null, e -> System.out.println("By name!"));
-        MenuItem beer2 = new MenuItem("By color", null, e -> System.out.println("By color!"));
-        MenuItem beer3 = new MenuItem("By volume", null, e -> System.out.println("By volume!"));
+        MenuItem stock1 = new MenuItem("Add beer", null, e -> this.stock.addBottle());
+        MenuItem stock2 = new MenuItem("Change qantity or remove", null, e -> this.stock.editBottle());
+        MenuItem stock3 = new MenuItem("See critic quantities", null, e -> this.stock.listCriticQuantities());
+        MenuItem beer1 = new MenuItem("By name", null, this::findBeerByName);
+        MenuItem beer2 = new MenuItem("By color", null, this::findBeerByColor);
+        MenuItem beer3 = new MenuItem("By volume", null, this::findBeerByVolume);
 
         Menu subMenu2 = new Menu("Manage stock");
         subMenu2.addItem(stock1);
@@ -43,10 +45,30 @@ public class Console {
         rootMenu.addItem(main1);
         rootMenu.addItem(main2);
 
-        // Tie the backlink up
         backRoot.setSubMenu(rootMenu);
 
         return rootMenu;
+    }
+
+    private void findBeerByName(ActionEvent e) {
+        String foo = this.sc.nextLine();
+        System.out.println(this.stock.findBeerByName(foo));
+    }
+
+    private void findBeerByColor(ActionEvent e) {
+        BeerColor choiceBC[] = BeerColor.values();
+        for (int i = 0; i < choiceBC.length; i++)
+            System.out.println(String.format("%d) %s", i + 1, choiceBC[i]));
+
+        int inChoiceBC = Run.inputCheck(this.sc, 0, choiceBC.length, null);
+        if (inChoiceBC == -1) return;
+        System.out.println(this.stock.findBeerByColor(choiceBC[inChoiceBC - 1]));
+    }
+
+    private void findBeerByVolume(ActionEvent e) {
+        int bar = Run.inputCheck(this.sc, 1, 100, null);
+        if (bar == -1) return;
+        System.out.println(this.stock.findBeerByVolume(bar));
     }
 
     class Menu {
