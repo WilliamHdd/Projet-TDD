@@ -1,8 +1,12 @@
 import be.ecam.beerbar.BeerColor;
 import be.ecam.beerbar.Bottle;
 import be.ecam.beerbar.Brewery;
+import be.ecam.beerbar.Stock;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.AbstractMap;
+import java.util.LinkedList;
 
 public class MainTest {
 
@@ -31,6 +35,13 @@ public class MainTest {
         Assert.assertEquals("Brasserie Jupiler", res);
     }
 
+    @Test
+    public void FindBeerTest() {
+        Stock s = new Stock();
+        Bottle b = s.findBeerByName("Bokrijks");
+        String res = b.toString();
+        Assert.assertEquals("Bokrijks, 33cl, Rouge @ 7% d'alcool de Brasserie Alvinne", res);
+    }
 
 }
 
