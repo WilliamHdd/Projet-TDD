@@ -6,10 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Console {
+
+    private Stock stock;
+    //creer console
+    //creer stock
+    public Console() {
+        this.stock = new Stock();
+    }
+
+
     public Menu createMenuSystem() {
         MenuItem backRoot = new MenuItem("Go back", null, null);
 
-        MenuItem stock1 = new MenuItem("Add beer", null, e -> System.out.println("Add beer!"));
+        MenuItem stock1 = new MenuItem("Add beer", null, e -> this.stock.addBottle()); //appeller stock methods
         MenuItem stock2 = new MenuItem("Change qantity or remove", null, e -> System.out.println("Change qantity or remove!"));
         MenuItem stock3 = new MenuItem("See critic quantities", null, e -> System.out.println("See critic quantities!"));
         MenuItem beer1 = new MenuItem("By name", null, e -> System.out.println("By name!"));
