@@ -3,6 +3,7 @@ package be.ecam.beerbar;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.AbstractMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -12,7 +13,7 @@ import java.util.Scanner;
  */
 public class Stock {
     
-    private final LinkedList<Pair<Bottle,Integer>> beerList;
+    private final LinkedList<AbstractMap.SimpleEntry<Bottle,Integer>> beerList;
     private final Scanner sc;
     
     public Stock() {
@@ -34,7 +35,7 @@ public class Stock {
                     System.err.println(nfe);
                 }
                 this.beerList.add(
-                    new Pair(
+                    new AbstractMap.SimpleEntry (
                         new Bottle(elem[0], vol, alc,
                                 BeerColor.valueOf(elem[3]), Brewery.valueOf(elem[4])), 1)
                 );
@@ -71,7 +72,7 @@ public class Stock {
     }
     
     private Bottle findBeerByName(String query) {
-        Iterator<Pair<Bottle,Integer>> iterBeerList = beerList.iterator();
+        Iterator<AbstractMap.SimpleEntry<Bottle,Integer>> iterBeerList = beerList.iterator();
         while (iterBeerList.hasNext()) {
             Bottle bottle = iterBeerList.next().getKey();
             if (bottle.getName().equals(query)){
@@ -82,7 +83,7 @@ public class Stock {
     }
     
     private LinkedList<Bottle> findBeerByColor(BeerColor query) {
-        Iterator<Pair<Bottle,Integer>> iterBeerList = beerList.iterator();
+        Iterator<AbstractMap.SimpleEntry<Bottle,Integer>> iterBeerList = beerList.iterator();
         LinkedList<Bottle> answer = new LinkedList();
         while (iterBeerList.hasNext()) {
             Bottle bottle = iterBeerList.next().getKey();
@@ -94,8 +95,8 @@ public class Stock {
     }
     
     private LinkedList<Bottle> findBeerByVolume(int query) {
-        Iterator<Pair<Bottle,Integer>> iterBeerList = beerList.iterator();
-        LinkedList<Bottle> answer = new LinkedList();
+        Iterator<AbstractMap.SimpleEntry<Bottle,Integer>> iterBeerList = beerList.iterator();
+        LinkedList<Bottle> answer = new LinkedList<>();
         while (iterBeerList.hasNext()) {
             Bottle bottle = iterBeerList.next().getKey();
             if (bottle.getVolume() == (query)){
@@ -167,7 +168,7 @@ public class Stock {
         if (inQte == -1) return;
         
         this.beerList.add(
-            new Pair(
+            new AbstractMap.SimpleEntry (
                 new Bottle(inName, inVolume, inAlcRate,
                     choiceBC[inChoiceBC-1], choiceBR[inChoiceBR-1]),
                 inQte)
@@ -179,10 +180,10 @@ public class Stock {
      * The function takes no arguments because it reads every field from stdin.
      */
     public void editBottle() {
-        Iterator<Pair<Bottle, Integer>> iterList = this.beerList.iterator();
+        Iterator<AbstractMap.SimpleEntry<Bottle, Integer>> iterList = this.beerList.iterator();
         int counter = 1;
         while (iterList.hasNext()) {
-            Pair<Bottle, Integer> pair = iterList.next();
+            AbstractMap.SimpleEntry<Bottle, Integer> pair = iterList.next();
             Bottle  bottle   = pair.getKey();
             Integer quantity = pair.getValue();
             System.out.println(String.format("%d) qte: %d, %s", counter, quantity, bottle));
@@ -209,9 +210,9 @@ public class Stock {
      * Print a list of beer with 10 bottles or less in the stock.
      */
     public void listCriticQuantities() {
-        Iterator<Pair<Bottle, Integer>> iterList = this.beerList.iterator();
+        Iterator<AbstractMap.SimpleEntry<Bottle, Integer>> iterList = this.beerList.iterator();
         while (iterList.hasNext()) {
-            Pair<Bottle, Integer> pair = iterList.next();
+            AbstractMap.SimpleEntry<Bottle, Integer> pair = iterList.next();
             Bottle  bottle   = pair.getKey();
             Integer quantity = pair.getValue();
             
