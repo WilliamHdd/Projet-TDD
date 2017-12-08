@@ -1,5 +1,7 @@
 package be.ecam.beerbar;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 /**
@@ -32,7 +34,25 @@ public class Run {
     private static final Stock STOCK = new Stock();
     
     public static void main(String[] args) {
-        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        Console t = new Console();
+        Console.Menu currentMenu = t.createMenuSystem();
+        while(currentMenu != null)
+        {
+            System.out.println(currentMenu);
+            System.out.print(">>> ");
+            String inp = "";
+            try
+            {
+                inp = br.readLine();
+                currentMenu = currentMenu.doOption(Integer.parseInt(inp));
+            }
+            catch(Exception ex)
+            {
+                System.out.println("Didn't understand " + inp);
+            }
+        }
+        /*
         Scanner sc = new Scanner(System.in);
         boolean running = true;
         
@@ -63,7 +83,7 @@ public class Run {
                     break;
             }       
         
-        }      
+        }  */
     }
 
     public static int inputCheck(Scanner sc, int lower, int upper, String errorStr) {
