@@ -1,1 +1,4 @@
 /BeerBar/target/
+/BeerBar/.idea/
+/BeerBar/BeerBar.iml
+/BeerBar/nbactions.xml
