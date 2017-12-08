@@ -15,7 +15,7 @@ public class Console {
         this.stock = new Stock();
         this.sc = new Scanner(System.in);
     }
-    
+
     public Menu createMenuSystem() {
         MenuItem backRoot = new MenuItem("Go back", null, null);
 
