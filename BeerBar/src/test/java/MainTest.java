@@ -18,6 +18,10 @@ public class MainTest {
         Assert.assertEquals(bot.getColor(),BeerColor.BLONDE);
     }
 
+    public void saikou() {
+        Assert.assertEquals("SaikouIsStupid", "SaikouIsStupid");
+
+    }
 
 }
 
