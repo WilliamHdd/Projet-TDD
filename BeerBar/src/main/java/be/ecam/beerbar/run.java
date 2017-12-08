@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * This is the runnable class of the project.
  */
-public class run {
+public class Run {
         
     private static final String MENU_MAIN = ""
             + "What do you want to do?       \n"
@@ -40,7 +40,7 @@ public class run {
 
             System.out.print(MENU_MAIN);
 
-            int selection = input_check(sc, 0, 3, MENU_MAIN);
+            int selection = inputCheck(sc, 0, 3, MENU_MAIN);
 
             switch (selection) {
                 case 1:
@@ -66,7 +66,7 @@ public class run {
         }      
     }
 
-    public static int input_check(Scanner sc, int lower, int upper, String errorStr) {
+    public static int inputCheck(Scanner sc, int lower, int upper, String errorStr) {
         int iinput = -1;
         String notice = errorStr != null ? errorStr : "Invalid input, please retry:";
 

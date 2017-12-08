@@ -45,7 +45,7 @@ public class Stock {
     }
     
     public void select() {
-        int selection = run.input_check(sc, 1, 3, null);
+        int selection = Run.inputCheck(sc, 1, 3, null);
         if (selection == -1) return;
         
         switch (selection) {
@@ -58,12 +58,12 @@ public class Stock {
                 for (int i = 0; i < choiceBC.length; i++)
                     System.out.println(String.format("%d) %s", i+1, choiceBC[i]));
 
-                int inChoiceBC = run.input_check(sc, 0, choiceBC.length, null);
+                int inChoiceBC = Run.inputCheck(sc, 0, choiceBC.length, null);
                 if (inChoiceBC == -1) return;
                 System.out.println(findBeerByColor(choiceBC[inChoiceBC-1]));
                 break;
             case 3: // find by volume
-                int bar = run.input_check(sc, 1, 100, null);
+                int bar = Run.inputCheck(sc, 1, 100, null);
                 if (bar == -1) return;
                 System.out.println(findBeerByVolume(bar));
                 break;
@@ -109,7 +109,7 @@ public class Stock {
      * Management interface of the beer stock.
      */
     public void manage() {
-        int select = run.input_check(sc, 0, 3, null);
+        int select = Run.inputCheck(sc, 0, 3, null);
 
         switch (select) {
             case 1: // add beer
@@ -136,11 +136,11 @@ public class Stock {
         }
         
         System.out.print("Beer volume: ");
-        int inVolume = run.input_check(sc, 1, 200, null);
+        int inVolume = Run.inputCheck(sc, 1, 200, null);
         if (inVolume == -1) return;
         
         System.out.print("Beer alcool rate: ");
-        int inAlcRate = run.input_check(sc, 0, 99, null);
+        int inAlcRate = Run.inputCheck(sc, 0, 99, null);
         if (inAlcRate == -1) return;
         
         // list the beer colors
@@ -149,7 +149,7 @@ public class Stock {
         for (int i = 0; i < choiceBC.length; i++)
             System.out.println(String.format("%d) %s", i+1, choiceBC[i]));
         
-        int inChoiceBC = run.input_check(sc, 0, choiceBC.length, null);
+        int inChoiceBC = Run.inputCheck(sc, 0, choiceBC.length, null);
         if (inChoiceBC == -1) return;
         
         
@@ -159,11 +159,11 @@ public class Stock {
         for (int i = 0; i < choiceBR.length; i++)
             System.out.println(String.format("%d) %s", i+1, choiceBR[i]));
         
-        int inChoiceBR = run.input_check(sc, 0, choiceBR.length, null);
+        int inChoiceBR = Run.inputCheck(sc, 0, choiceBR.length, null);
         if (inChoiceBR == -1) return;
         
         System.out.print("Type the quantity: ");
-        int inQte = run.input_check(sc, 1, 100, null);
+        int inQte = Run.inputCheck(sc, 1, 100, null);
         if (inQte == -1) return;
         
         this.beerList.add(
@@ -189,11 +189,11 @@ public class Stock {
             counter++;
         }
         System.out.print("Type the id of the beer to edit: ");
-        int inID = run.input_check(sc, 0, counter-1, null);
+        int inID = Run.inputCheck(sc, 0, counter-1, null);
         if (inID == 0) return;
         
         System.out.print("Type the new quantity of the beer (0 to remove): ");
-        int inQte = run.input_check(sc, 0, 100, null);
+        int inQte = Run.inputCheck(sc, 0, 100, null);
         
         // delete a bottle
         if (inQte == 0) {
