@@ -1,18 +1,18 @@
 package be.ecam.beerbar;
 
 /**
- * This class sole purpose is to serve a predefined set of beer color.
+ * This class represents a beer color / type
  */
-public enum BeerColor {
+public class BeerColor {
     
-    ROSE("Rose"),
-    AMBRE("Ambre"),
-    BRUNE("Brune"),
-    ROUGE("Rouge"),
-    BLONDE("Blonde"),
-    BLANCHE("Blanche");
+//    ROSE("Rose"),
+//    AMBRE("Ambre"),
+//    BRUNE("Brune"),
+//    ROUGE("Rouge"),
+//    BLONDE("Blonde"),
+//    BLANCHE("Blanche");
 
-    private final String color;
+    private String color;
     
     BeerColor(String color) {
         this.color = color;
