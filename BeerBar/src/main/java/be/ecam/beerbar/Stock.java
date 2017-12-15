@@ -44,10 +44,9 @@ public class Stock {
     }
     
     public Bottle findBeerByName(String query) {
-        Iterator<AbstractMap.SimpleEntry<Bottle,Integer>> iterBeerList = beerList.iterator();
-        while (iterBeerList.hasNext()) {
-            Bottle bottle = iterBeerList.next().getKey();
-            if (bottle.getName().equals(query)){
+        for (AbstractMap.SimpleEntry<Bottle, Integer> beerList : this.beerList) {
+            Bottle bottle = beerList.getKey();
+            if (bottle.getName().equals(query)) {
                 return bottle;
             }
         }
@@ -56,7 +55,7 @@ public class Stock {
     
     public LinkedList<Bottle> findBeerByColor(BeerColor query) {
         Iterator<AbstractMap.SimpleEntry<Bottle,Integer>> iterBeerList = beerList.iterator();
-        LinkedList<Bottle> answer = new LinkedList();
+        LinkedList<Bottle> answer = new LinkedList<>();
         while (iterBeerList.hasNext()) {
             Bottle bottle = iterBeerList.next().getKey();
             if (bottle.getColor().equals(query)){
@@ -116,12 +115,10 @@ public class Stock {
      * Print a list of beer with 10 bottles or less in the stock.
      */
     public void listCriticQuantities() {
-        Iterator<AbstractMap.SimpleEntry<Bottle, Integer>> iterList = this.beerList.iterator();
-        while (iterList.hasNext()) {
-            AbstractMap.SimpleEntry<Bottle, Integer> pair = iterList.next();
-            Bottle  bottle   = pair.getKey();
+        for (AbstractMap.SimpleEntry<Bottle, Integer> pair : this.beerList) {
+            Bottle bottle = pair.getKey();
             Integer quantity = pair.getValue();
-            
+
             if (quantity <= 10) {
                 System.out.println(String.format("qte:%d, %s", quantity, bottle));
             }
