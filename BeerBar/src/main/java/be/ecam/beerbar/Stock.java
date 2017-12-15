@@ -17,7 +17,7 @@ public class Stock {
     private final Scanner sc;
     
     public Stock() {
-        this.beerList = new LinkedList();
+        this.beerList = new LinkedList<>();
         this.sc = new Scanner(System.in);
         readCSV("BeerList.csv");
     }
@@ -47,10 +47,9 @@ public class Stock {
     }
     
     public Bottle findBeerByName(String query) {
-        Iterator<AbstractMap.SimpleEntry<Bottle,Integer>> iterBeerList = beerList.iterator();
-        while (iterBeerList.hasNext()) {
-            Bottle bottle = iterBeerList.next().getKey();
-            if (bottle.getName().equals(query)){
+        for (AbstractMap.SimpleEntry<Bottle, Integer> beerList : this.beerList) {
+            Bottle bottle = beerList.getKey();
+            if (bottle.getName().equals(query)) {
                 return bottle;
             }
         }
@@ -59,7 +58,7 @@ public class Stock {
     
     public LinkedList<Bottle> findBeerByColor(BeerColor query) {
         Iterator<AbstractMap.SimpleEntry<Bottle,Integer>> iterBeerList = beerList.iterator();
-        LinkedList<Bottle> answer = new LinkedList();
+        LinkedList<Bottle> answer = new LinkedList<>();
         while (iterBeerList.hasNext()) {
             Bottle bottle = iterBeerList.next().getKey();
             if (bottle.getColor().equals(query)){
@@ -125,7 +124,7 @@ public class Stock {
         if (inQte == -1) return;
         
         this.beerList.add(
-            new AbstractMap.SimpleEntry (
+            new AbstractMap.SimpleEntry<>(
                 new Bottle(inName, inVolume, inAlcRate,
                     choiceBC[inChoiceBC-1], choiceBR[inChoiceBR-1]),
                 inQte)
@@ -167,12 +166,10 @@ public class Stock {
      * Print a list of beer with 10 bottles or less in the stock.
      */
     public void listCriticQuantities() {
-        Iterator<AbstractMap.SimpleEntry<Bottle, Integer>> iterList = this.beerList.iterator();
-        while (iterList.hasNext()) {
-            AbstractMap.SimpleEntry<Bottle, Integer> pair = iterList.next();
-            Bottle  bottle   = pair.getKey();
+        for (AbstractMap.SimpleEntry<Bottle, Integer> pair : this.beerList) {
+            Bottle bottle = pair.getKey();
             Integer quantity = pair.getValue();
-            
+
             if (quantity <= 10) {
                 System.out.println(String.format("qte:%d, %s", quantity, bottle));
             }
