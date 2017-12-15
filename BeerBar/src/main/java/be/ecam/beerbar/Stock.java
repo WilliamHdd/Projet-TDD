@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.AbstractMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Scanner;
 
 /**
  * This class handle a virtual stock of beers.
@@ -14,11 +13,9 @@ import java.util.Scanner;
 public class Stock {
     
     private final LinkedList<AbstractMap.SimpleEntry<Bottle,Integer>> beerList;
-    private final Scanner sc;
     
     public Stock() {
         this.beerList = new LinkedList();
-        this.sc = new Scanner(System.in);
         readCSV("BeerList.csv");
     }
 
@@ -85,82 +82,34 @@ public class Stock {
      * Add a bottle to the list of beer.
      * The function takes no arguments because it reads every field from stdin.
      */
-    public void addBottle() {
-        System.out.print("Type the following bottle informations.\nBeer name: ");
-        String inName = sc.nextLine();
-        if (inName.length() < 3 || inName.length() > 80) {
-            System.err.println("Invalid input");
-            return;
-        }
-        
-        System.out.print("Beer volume: ");
-        int inVolume = Run.inputCheck(sc, 1, 200, null);
-        if (inVolume == -1) return;
-        
-        System.out.print("Beer alcool rate: ");
-        int inAlcRate = Run.inputCheck(sc, 0, 99, null);
-        if (inAlcRate == -1) return;
-        
-        // list the beer colors
-        System.out.print("Select the beer color\n");
-        BeerColor choiceBC[] = BeerColor.values();
-        for (int i = 0; i < choiceBC.length; i++)
-            System.out.println(String.format("%d) %s", i+1, choiceBC[i]));
-        
-        int inChoiceBC = Run.inputCheck(sc, 0, choiceBC.length, null);
-        if (inChoiceBC == -1) return;
-        
-        
-        // list the breweries
-        System.out.print("Select the brewery\n");
-        Brewery choiceBR[] = Brewery.values();
-        for (int i = 0; i < choiceBR.length; i++)
-            System.out.println(String.format("%d) %s", i+1, choiceBR[i]));
-        
-        int inChoiceBR = Run.inputCheck(sc, 0, choiceBR.length, null);
-        if (inChoiceBR == -1) return;
-        
-        System.out.print("Type the quantity: ");
-        int inQte = Run.inputCheck(sc, 1, 100, null);
-        if (inQte == -1) return;
-        
+    public void addBottle(String name, int volume, int alcRate, BeerColor color, Brewery brewery, int quantity) {
         this.beerList.add(
             new AbstractMap.SimpleEntry (
-                new Bottle(inName, inVolume, inAlcRate,
-                    choiceBC[inChoiceBC-1], choiceBR[inChoiceBR-1]),
-                inQte)
+                new Bottle(name, volume, alcRate,
+                    color, brewery),
+                quantity)
         );
+        System.out.println("Beer added");
+    }
+
+    public Iterator<AbstractMap.SimpleEntry<Bottle, Integer>> getBeerList() {
+        return this.beerList.iterator();
     }
     
     /**
      * Edit the quantity or remove a bottle from the beer list.
      * The function takes no arguments because it reads every field from stdin.
      */
-    public void editBottle() {
-        Iterator<AbstractMap.SimpleEntry<Bottle, Integer>> iterList = this.beerList.iterator();
-        int counter = 1;
-        while (iterList.hasNext()) {
-            AbstractMap.SimpleEntry<Bottle, Integer> pair = iterList.next();
-            Bottle  bottle   = pair.getKey();
-            Integer quantity = pair.getValue();
-            System.out.println(String.format("%d) qte: %d, %s", counter, quantity, bottle));
-            counter++;
-        }
-        System.out.print("Type the id of the beer to edit: ");
-        int inID = Run.inputCheck(sc, 0, counter-1, null);
-        if (inID == 0) return;
-        
-        System.out.print("Type the new quantity of the beer (0 to remove): ");
-        int inQte = Run.inputCheck(sc, 0, 100, null);
-        
+    public void editBottle(int quantity, int ID) {
         // delete a bottle
-        if (inQte == 0) {
-            this.beerList.remove(inID-1);
+        if (quantity == 0) {
+            this.beerList.remove(ID-1);
+            System.out.println(String.format("Beer %d deleted", ID));
             return;
         }
-        
         // add the quantity
-        this.beerList.get(inID-1).setValue(inQte);
+        this.beerList.get(ID-1).setValue(quantity);
+        System.out.println(String.format("Beer %d updated", ID));
     }
     
     /**
