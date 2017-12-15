@@ -36,11 +36,39 @@ public class MainTest {
     }
 
     @Test
-    public void FindBeerTest() {
+    public void FindBeerByNameTest() {
         Stock s = new Stock();
         Bottle b = s.findBeerByName("Bokrijks");
         String res = b.toString();
         Assert.assertEquals("Bokrijks, 33cl, Rouge @ 7% d'alcool de Brasserie Alvinne", res);
+    }
+
+    @Test
+    public void FindBeerByColorTest() {
+        Stock s = new Stock();
+        LinkedList<Bottle> b = s.findBeerByColor(BeerColor.ROUGE);
+        int res = b.size();
+        Assert.assertEquals(23, res);
+    }
+
+    @Test
+    public void FindBeerByVolumeTest() {
+        Stock s = new Stock();
+        LinkedList<Bottle> b = s.findBeerByVolume(33);
+        int res = b.size();
+        Assert.assertEquals(105, res);
+    }
+
+    @Test
+    public void EditBottleQuantityTest() {
+        LinkedList<AbstractMap.SimpleEntry<Bottle,Integer>> beerList = new LinkedList();
+        beerList.add(
+                new AbstractMap.SimpleEntry (
+                        new Bottle("test", 33, 7, BeerColor.BLONDE, Brewery.JUPILER), 1)
+        );
+        beerList.get(0).setValue(10);
+        int res = beerList.get(0).getValue();
+        Assert.assertEquals(10, res);
     }
 
 }
