@@ -17,15 +17,15 @@ public class MainTest {
 
     @Test
     public void addBottleTest() {
-        Bottle bot = new Bottle("jupiler", 25, 4, BeerColor.BLONDE, Brewery.JUPILER);
+        Bottle bot = new Bottle("jupiler", 25, 4, new BeerColor("Blonde"), Brewery.JUPILER);
         Assert.assertEquals(bot.getName(),"jupiler");
         Assert.assertEquals(bot.getVolume(),25);
-        Assert.assertEquals(bot.getColor(),BeerColor.BLONDE);
+        Assert.assertEquals(bot.getColor(),new BeerColor("Blonde"));
     }
 
     @Test
     public void BeerColorTest() {
-        String res = BeerColor.BLONDE.toString();
+        String res = new BeerColor("Blonde").toString();
         Assert.assertEquals("Blonde", res);
     }
 
@@ -46,7 +46,7 @@ public class MainTest {
     @Test
     public void FindBeerByColorTest() {
         Stock s = new Stock();
-        LinkedList<Bottle> b = s.findBeerByColor(BeerColor.ROUGE);
+        LinkedList<Bottle> b = s.findBeerByColor(new BeerColor("Rouge"));
         int res = b.size();
         Assert.assertEquals(23, res);
     }
@@ -61,10 +61,10 @@ public class MainTest {
 
     @Test
     public void EditBottleQuantityTest() {
-        LinkedList<AbstractMap.SimpleEntry<Bottle,Integer>> beerList = new LinkedList();
+        LinkedList<AbstractMap.SimpleEntry<Bottle,Integer>> beerList = new LinkedList<>();
         beerList.add(
-                new AbstractMap.SimpleEntry (
-                        new Bottle("test", 33, 7, BeerColor.BLONDE, Brewery.JUPILER), 1)
+                new AbstractMap.SimpleEntry<>(
+                        new Bottle("test", 33, 7, new BeerColor("Blonde"), Brewery.JUPILER), 1)
         );
         beerList.get(0).setValue(10);
         int res = beerList.get(0).getValue();

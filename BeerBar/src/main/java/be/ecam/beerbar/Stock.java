@@ -14,10 +14,12 @@ import java.util.Scanner;
 public class Stock {
     
     private final LinkedList<AbstractMap.SimpleEntry<Bottle,Integer>> beerList;
+    private BeerColorList beerColorList;
     private final Scanner sc;
     
     public Stock() {
         this.beerList = new LinkedList<>();
+        this.beerColorList = BeerColorList.fromCsv("BeerColorList.csv");
         this.sc = new Scanner(System.in);
         readCSV("BeerList.csv");
     }
@@ -35,10 +37,11 @@ public class Stock {
                 } catch (NumberFormatException nfe) {
                     System.err.println(nfe);
                 }
+
+                BeerColor color = this.beerColorList.get(elem[3]);
                 this.beerList.add(
-                    new AbstractMap.SimpleEntry (
-                        new Bottle(elem[0], vol, alc,
-                                BeerColor.valueOf(elem[3]), Brewery.valueOf(elem[4])), 1)
+                    new AbstractMap.SimpleEntry<>(
+                        new Bottle(elem[0], vol, alc, color, Brewery.valueOf(elem[4])), 1)
                 );
             }
         } catch (IOException e) {
@@ -102,19 +105,22 @@ public class Stock {
         
         // list the beer colors
         System.out.print("Select the beer color\n");
-        BeerColor choiceBC[] = BeerColor.values();
-        for (int i = 0; i < choiceBC.length; i++)
-            System.out.println(String.format("%d) %s", i+1, choiceBC[i]));
-        
-        int inChoiceBC = Run.inputCheck(sc, 0, choiceBC.length, null);
+
+        int i = 0;
+        for (BeerColor color : this.beerColorList.values()) {
+            System.out.println(String.format("%d) %s", i+1, color));
+            i++;
+        }
+
+        int inChoiceBC = Run.inputCheck(sc, 0, i, null);
         if (inChoiceBC == -1) return;
         
         
         // list the breweries
         System.out.print("Select the brewery\n");
         Brewery choiceBR[] = Brewery.values();
-        for (int i = 0; i < choiceBR.length; i++)
-            System.out.println(String.format("%d) %s", i+1, choiceBR[i]));
+        for (int j = 0; j < choiceBR.length; j++)
+            System.out.println(String.format("%d) %s", j+1, choiceBR[j]));
         
         int inChoiceBR = Run.inputCheck(sc, 0, choiceBR.length, null);
         if (inChoiceBR == -1) return;
@@ -126,7 +132,8 @@ public class Stock {
         this.beerList.add(
             new AbstractMap.SimpleEntry<>(
                 new Bottle(inName, inVolume, inAlcRate,
-                    choiceBC[inChoiceBC-1], choiceBR[inChoiceBR-1]),
+                        // FIXME: Horrible, clean this up
+                        (BeerColor) this.beerColorList.values().toArray()[inChoiceBC-1], choiceBR[inChoiceBR-1]),
                 inQte)
         );
     }
@@ -174,5 +181,9 @@ public class Stock {
                 System.out.println(String.format("qte:%d, %s", quantity, bottle));
             }
         }
+    }
+
+    public BeerColorList getBeerColorList() {
+        return beerColorList;
     }
 }

@@ -24,9 +24,9 @@ public class Console {
                 e -> this.stock.editBottle());
         MenuItem stock3 = new MenuItem("See critic quantities", null,
                 e -> this.stock.listCriticQuantities());
-        MenuItem beer1 = new MenuItem("By name", null, this::findBeerByName);
-        MenuItem beer2 = new MenuItem("By color", null, this::findBeerByColor);
-        MenuItem beer3 = new MenuItem("By volume", null, this::findBeerByVolume);
+        MenuItem beer1 = new MenuItem("By name", null, e -> this.findBeerByName());
+        MenuItem beer2 = new MenuItem("By color", null, e -> this.findBeerByColor());
+        MenuItem beer3 = new MenuItem("By volume", null, e -> this.findBeerByVolume());
 
         Menu subMenu2 = new Menu("Manage stock");
         subMenu2.addItem(stock1);
@@ -51,13 +51,13 @@ public class Console {
         return rootMenu;
     }
 
-    private void findBeerByName(ActionEvent e) {
+    private void findBeerByName() {
         String foo = this.sc.nextLine();
         System.out.println(this.stock.findBeerByName(foo));
     }
 
-    private void findBeerByColor(ActionEvent e) {
-        BeerColor choiceBC[] = BeerColor.values();
+    private void findBeerByColor() {
+        BeerColor choiceBC[] = (BeerColor[]) stock.getBeerColorList().values().toArray();
         for (int i = 0; i < choiceBC.length; i++)
             System.out.println(String.format("%d) %s", i + 1, choiceBC[i]));
 
@@ -66,7 +66,7 @@ public class Console {
         System.out.println(this.stock.findBeerByColor(choiceBC[inChoiceBC - 1]));
     }
 
-    private void findBeerByVolume(ActionEvent e) {
+    private void findBeerByVolume() {
         int bar = Run.inputCheck(this.sc, 1, 100, null);
         if (bar == -1) return;
         System.out.println(this.stock.findBeerByVolume(bar));

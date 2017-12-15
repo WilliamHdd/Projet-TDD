@@ -14,7 +14,7 @@ public class BeerColor {
 
     private String color;
     
-    BeerColor(String color) {
+    public BeerColor(String color) {
         this.color = color;
     }
     
