@@ -81,7 +81,8 @@ public class Stock {
      * Add a bottle to the list of beer.
      * The function takes no arguments because it reads every field from stdin.
      */
-    public void addBottle(String name, int volume, int alcRate, BeerColor color, Brewery brewery, int quantity) {
+    public void addBottle(String name, int volume, int alcRate, BeerColor color,
+                          Brewery brewery, int quantity) {
         this.beerList.add(
             new AbstractMap.SimpleEntry (
                 new Bottle(name, volume, alcRate,
